@@ -11,9 +11,10 @@ movie_list = {
 }
 
 
-def split_name(name):
-    return name.split()[-1]
+# print(sorted(name_list, key=lambda name: name.split()[-1]))
 
-print(name_list)
-print(sorted(name_list))
-print(sorted(name_list, key=lambda name: name.split()[-1]))
+movie_list_sorted = sorted(movie_list, key=lambda movie_id: movie_list[movie_id]["rating"], reverse=True)
+for movie_id in movie_list_sorted:
+    title = movie_list[movie_id]["title"]
+    rating = movie_list[movie_id]["rating"]
+    print(f"Title: {title} Rating: {rating}")
