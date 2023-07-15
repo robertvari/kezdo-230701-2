@@ -9,3 +9,11 @@ movie_list = {
     6: {"title": "Avatar", "rating": 76},
     7: {"title": "The Woman King", "rating": 79}
 }
+
+
+def split_name(name):
+    return name.split()[-1]
+
+print(name_list)
+print(sorted(name_list))
+print(sorted(name_list, key=lambda name: name.split()[-1]))
