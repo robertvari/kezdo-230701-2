@@ -80,7 +80,7 @@ def check_results(magic_number, player_guess):
     print(f"Now you have {CREDITS} credits.")
 
 def ask_to_restart_game():
-    if CREDITS <= 0:
+    if CREDITS < 0:
         print("You lost all your credits :(")
         print("Game Over")
         exit()
