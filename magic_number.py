@@ -25,7 +25,6 @@ def main():
     # todo start game loop
     game_loop()
 
-
 def clear_screen():
     if platform.system().lower() == "windows":
         os.system("cls")
