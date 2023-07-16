@@ -12,7 +12,7 @@ def main(root_folder, text="Watermark", font_size=40):
     image_files = collect_image_files(files)
 
     for image_file in image_files:
-        process_image(image_file)
+        process_image(image_file, text, font_size)
 
 def collect_image_files(file_list) -> list:
     image_files = []
@@ -28,7 +28,7 @@ def collect_image_files(file_list) -> list:
     return image_files
 
 def process_image(image_file, text, font_size):
-    img = Image.open(image_file)
+    img = Image.open(image_file).convert("RGBA")
 
     # resize image
     img.thumbnail((1000, 1000))
@@ -42,14 +42,14 @@ def process_image(image_file, text, font_size):
     draw = ImageDraw.Draw(text_layer)
 
     # create font
-    font = ImageFont.truetype("watermark.ttf", font_size)
+    font = ImageFont.truetype("watermarker.ttf", font_size)
     text_box = font.getbbox(text)
     text_width = text_box[2]
     text_height = text_box[3]
 
     margin = 20
 
-    # write text
+    # write text to the empty canvas
     x = img_width - text_width - margin
     y = img_height - text_height - margin
     draw.text((x,y), text, fill=(255, 255, 255, 100), font=font)
@@ -60,8 +60,15 @@ def process_image(image_file, text, font_size):
     save_image(img, image_file)
 
 def save_image(image, image_file):
-    pass
+    root_folder = os.path.dirname(image_file)
+    base_name = os.path.basename(image_file)
 
+    save_dir = os.path.join(root_folder, "_thumbnails")
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+
+    new_file_name = os.path.join(save_dir, base_name)
+    image.save(new_file_name)
 
 main(
     root_folder=r"D:\Work\_PythonSuli\kezdo-230701\photos", 
