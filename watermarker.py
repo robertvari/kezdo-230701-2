@@ -43,11 +43,23 @@ def process_image(image_file, text, font_size):
 
     # create font
     font = ImageFont.truetype("watermark.ttf", font_size)
+    text_box = font.getbbox(text)
+    text_width = text_box[2]
+    text_height = text_box[3]
 
+    margin = 20
+
+    # write text
+    x = img_width - text_width - margin
+    y = img_height - text_height - margin
+    draw.text((x,y), text, fill=(255, 255, 255, 100), font=font)
     
-    save_image()
+    # merge text_layer and image
+    img = Image.alpha_composite(img, text_layer).convert("RGB")
 
-def save_image():
+    save_image(img, image_file)
+
+def save_image(image, image_file):
     pass
 
 
