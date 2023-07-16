@@ -21,7 +21,7 @@ def main():
     get_player_name()
 
     time.sleep(3)
-    
+
     # todo start game loop
     game_loop()
 
@@ -41,7 +41,57 @@ def get_player_name():
     PLAYER_NAME = input("What is your name?")
 
 def game_loop():
-    pass
+    clear_screen()
+
+    magic_number = random.randint(MIN, MAX)
+    max_tries = 3
+    print(f"You can try {max_tries} times.")
+
+    player_guess = input("Your guess?")
+    while player_guess != str(magic_number):
+        clear_screen()
+        
+        max_tries -= 1
+        if max_tries == 0:
+            break
+
+        print(f"Wrong guess. You have {max_tries} tries. Try Again.")
+        player_guess = input("Your guess?")
+
+    clear_screen()
+
+    # check final result
+    check_results(magic_number, player_guess)
+
+    # ask player for next round
+    ask_to_restart_game()
+
+def check_results(magic_number, player_guess):
+    global CREDITS
+
+    if player_guess == str(magic_number):
+        print(f"You win {REWARD} credits {PLAYER_NAME}!!!")
+        CREDITS += REWARD
+        print("Well done!")
+    else:
+        print(f"My number was {magic_number}.")
+        print(f"You lost {REWARD} credits.")
+        CREDITS -= REWARD
+    
+    print(f"Now you have {CREDITS} credits.")
+
+def ask_to_restart_game():
+    if CREDITS <= 0:
+        print("You lost all your credits :(")
+        print("Game Over")
+        exit()
+    else:
+        player_response = input("Do you want to try again? (y/n)")
+        if player_response == "y":
+            game_loop()
+        else:
+            print("Maybe next time :)")
+            exit()
 
 # start program
 main()
