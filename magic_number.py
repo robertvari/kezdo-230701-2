@@ -45,6 +45,7 @@ def game_loop():
     magic_number = random.randint(MIN, MAX)
     max_tries = 3
     print(f"You can try {max_tries} times.")
+    print(f"DEBUG: MAGIC NUMBER {magic_number}")
 
     player_guess = input("Your guess?")
     while player_guess != str(magic_number):
